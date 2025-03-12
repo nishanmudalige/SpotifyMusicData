@@ -1,5 +1,4 @@
 ## python -m pip install spotipy
-
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import time
@@ -15,7 +14,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # name = ["Micheal Jackson","pitbull","Christina","Elvis Presley"]
 # name = ["Kendrick Lamar", "Drake", "Taylor Swift"]
-name = ["Kendrick Lamar"]
+name = ["Taylor Swift"]
 result = sp.search(name) 
 result['tracks']['items'][1]['artists']
 
@@ -45,6 +44,7 @@ def album_songs(uri):
     spotify_albums[album]['id'] = []
     spotify_albums[album]['name'] = []
     spotify_albums[album]['uri'] = []
+    spotify_albums[album]['duration_ms'] = []
     #pull data on album tracks
     tracks = sp.album_tracks(album) 
     for n in range(len(tracks['items'])): 
@@ -53,6 +53,7 @@ def album_songs(uri):
         spotify_albums[album]['id'].append(tracks['items'][n]['id'])
         spotify_albums[album]['name'].append(tracks['items'][n]['name'])
         spotify_albums[album]['uri'].append(tracks['items'][n]['uri'])
+        spotify_albums[album]['duration_ms'].append(tracks['items'][n]['duration_ms'])
         
         
 spotify_albums = {}
@@ -76,6 +77,7 @@ def audio_features(album):
     spotify_albums[album]['tempo'] = []
     spotify_albums[album]['valence'] = []
     spotify_albums[album]['popularity'] = []
+    spotify_albums[album]['duration_ms'] = []
     
     track_count = 0
     for track in spotify_albums[album]['uri']:
@@ -92,6 +94,7 @@ def audio_features(album):
         spotify_albums[album]['speechiness'].append(features[0]['speechiness'])
         spotify_albums[album]['tempo'].append(features[0]['tempo'])
         spotify_albums[album]['valence'].append(features[0]['valence'])
+        spotify_albums[album]['duration_ms'].append(features[0]['duration_ms'])
         #popularity is stored elsewhere
         pop = sp.track(track)
         spotify_albums[album]['popularity'].append(pop['popularity'])
@@ -132,6 +135,9 @@ dic_df['tempo'] = []
 dic_df['valence'] = []
 dic_df['popularity'] = []
 dic_df['artist_name'] = []  # Add this line
+# Add duration_ms to the dictionary
+dic_df['duration_ms'] = []
+
 
 
 # for album in spotify_albums: 
@@ -160,4 +166,4 @@ print(len(dataframe))
 final_df = dataframe.sort_values('popularity', ascending=False).drop_duplicates('name').sort_index()
 print(len(final_df))
 
-final_df.to_csv("spotify_music_kendrick.csv")
+final_df.to_csv("spotify_music_sabrina_carpenter.csv")

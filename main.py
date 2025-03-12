@@ -65,7 +65,7 @@ def get_all_songs_by_artist(token, artist_id):
 
 token = get_token()
 # print(token)
-result = search_for_artist(token, "Michael Jackson")
+result = search_for_artist(token, "The Weeknd")
 # print(result)
 # print(result["name"])
 
@@ -80,6 +80,7 @@ print(top_songs)
 for idx, song in enumerate(top_songs):
     print(f"{idx + 1}. {song['name']}")
 
+print(artist_id)
 
 # for idx, song in enumerate(all_songs):
 #     print(f"{idx + 1}. {song['name']}")
