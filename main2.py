@@ -1,3 +1,4 @@
+## I don't know why but the typical pip3 install spotipy or pip install spotipy (including sudo) does not work
 ## python -m pip install spotipy
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
